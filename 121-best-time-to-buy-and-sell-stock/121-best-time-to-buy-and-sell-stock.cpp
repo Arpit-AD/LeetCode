@@ -1,20 +1,13 @@
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        vector<int> p (prices.size());
-        int x = 0;
-        p[prices.size()-1] = prices[prices.size()-1];
-        for(int i = prices.size()-2; i >= 0; i--)
+        int profit = 0;
+        int min_ele = INT_MAX;
+        for (int i = 0; i < prices.size(); i++)
         {
-          p[i] = max(prices[i],p[i+1]);
-            // cout << p[i] << "p" << i << " ";
+            min_ele = min(min_ele,prices[i]);
+            profit = max(profit, prices[i]-min_ele);
         }
-        cout << endl;
-        for(int i = 0; i < prices.size()-1; i++)
-        {
-            x = max(x,p[i+1]-prices[i]);
-            // cout << x << "x" << " ";
-        }
-          return x;  
+        return profit;
     }
 };
