@@ -10,24 +10,57 @@
  */
 class Solution {
 public:
+    ListNode* mergeSortedLL(ListNode* list1, ListNode* list2)
+    {
+        ListNode* head = new ListNode(0);
+        ListNode* temp = head;
+        while(list1 && list2)
+        {
+            if(list1->val < list2->val)
+            {
+                temp->next = list1;
+                list1 = list1-> next;
+                temp = temp->next;
+            }
+            else
+            {
+                temp->next = list2;
+                list2 = list2-> next;
+                temp = temp->next;
+            }
+        }
+        while(list1)
+        {
+            temp->next = list1;
+                list1 = list1-> next;
+                temp = temp->next;
+        }
+        while(list2){
+            temp->next = list2;
+                list2 = list2-> next;
+                temp = temp->next;
+        }
+        return head->next;
+    }
+    
     ListNode* sortList(ListNode* head) {
-        ListNode* temp1 = head;
-        ListNode* temp2 = head;
-        vector<int> x;
-        while(temp1 != NULL)
+        if(head == NULL || head->next == NULL)
+            return head;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        while(fast->next && fast->next->next)
         {
-            int k = temp1->val;
-            temp1 = temp1->next;
-            x.emplace_back(k);
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        sort(x.begin(),x.end());
-        int i = 0;
-        while(temp2 != NULL)
-        {
-            temp2->val = x[i];
-            i++;
-            temp2 = temp2->next;
-        }
-        return head;
+        ListNode* second_part = slow->next;
+        slow->next = NULL;
+        ListNode* first_part = head;
+        
+        ListNode* sorted_first_part = sortList(first_part);
+        ListNode* sorted_second_part = sortList(second_part);
+        
+        return mergeSortedLL(sorted_first_part,sorted_second_part);
+        
     }
 };
