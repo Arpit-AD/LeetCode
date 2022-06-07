@@ -26,19 +26,19 @@ public:
     
     
     bool isPalindrome(ListNode* head) {
-        ListNode* temp = head;
-         ListNode* slow = head;
+      
+        ListNode* slow = head;
         ListNode* fast = head;
         while(fast->next!=NULL && fast->next->next!=NULL)
         {
             slow = slow->next;
-            fast = fast->next->next;
+            fast = fast->next->next;// 1 2 2 1
         }
-        slow->next = reverseLL(slow->next);
+        slow = reverseLL(slow);
         
-        slow = slow->next;
+        // slow = slow->next;// 1 2 3 && 1 2    1 2 3 2 1
         
-        while(slow)
+        while(head)
         {
             if(head->val != slow->val)
                 return false;
