@@ -14,7 +14,7 @@ public:
         ListNode* ans = new ListNode();
         ListNode* temp = ans;
         int carry = 0;
-        while(l1 != NULL || l2 != NULL || carry)
+        while(l1 || l2 || carry)
         {
             int sum = 0;
             if(l1 != NULL)
@@ -29,9 +29,9 @@ public:
             }
             sum += carry;
             carry = sum/10;
-            ListNode* node = new ListNode(sum%10);
-            temp->next = node;
-            temp = temp->next;                
+            ListNode* x = new ListNode(sum%10);
+            temp->next = x;
+            temp = temp->next;
         }
         
         
